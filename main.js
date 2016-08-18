@@ -7,47 +7,93 @@ const settings = {
 }
 
 class ReTrello {
-    constructor () {
+    constructor() {
 
     }
 
-    init () {
-        this.getTrelloData(
-            this.buildCheckLists(),
-            this.addTrelloDataToPage
-        );
+    init() {
+        // this.getTrelloData(
+        //     this.buildCardUrl(),
+        //     this.buildCardName.bind(this)
+        // );
+
+        // this.getTrelloData(
+        //     this.buildCardUrl()
+        // );
+
+        this.buildTiles();
     }
 
-    buildCardUrl () {
+    // getTrelloData (urlType, callBack) {
+    //     $.ajax(urlType)
+    //     .done(callBack);
+    // }
+
+    getTrelloData(urlType) {
+
+        $.ajax({
+            url: urlType,
+            success: function(data) {
+                return data;
+            }
+        });
+    }
+
+    buildCardUrl() {
         return `${settings.url}/1/lists/${settings.listID}/cards?key=${settings.key}&token=${settings.token}`;
     }
 
-    buildCheckLists() {
-        return `${settings.url}/1/boards/${settings.boardID}/checklists?key=${settings.key}&token=${settings.token}`;
+    buildCheckListUrl(checkListID) {
+        return `${settings.url}/1/checklists/${checkListID}/checkItems?key=${settings.key}&token=${settings.token}`
     }
 
-    getTrelloData (urlType, callBack) {
-        $.ajax(urlType)
-            .done(callBack);
+    buildTiles() {
+        console.log(this.getTrelloData(this.buildCardUrl()));
     }
 
-    addTrelloDataToPage (data) {
+    // buildCardName(data) {
+    //     let instance = this;
+    //     this.tiles = {};
+    //
+    //     $.each(data, function(index, card) {
+    //
+    //         // 1. Create tile object and get and add card name
+    //         instance.tiles[index] = {
+    //             name: card.name
+    //         }
+    //
+    //         // 2. each card get checklist
+    //         let checkListID = card.idChecklists[0];
+    //
+    //         instance.getTrelloData(
+    //             instance.buildCheckListUrl(checkListID),
+    //             instance.buildCardChecklist.bind(instance)
+    //         )
+    //
+    //     });
+    // }
+    //
+    // buildCardChecklist(data) {
+    //     console.log(this, data);
+    // }
 
-        $.each(data, function(index, card) {
-
-            console.log(card);
-
-            let checkList = '';
-            let cardName = card.name;
-
-            $.each(card.checkItems, function(index, checkItem) {
-
-                let listItem = `<li>${checkItem.name}</li>`
-                checkList += listItem;
-            });
-
-            $('body').append(`<h1>${cardName}</h1><ul class="card">${checkList}</ul>`);
-
-        });
-    }
+    // addTrelloDataToPage (data) {
+    //
+    //     $.each(data, function(index, card) {
+    //
+    //         console.log(card);
+    //
+    //         let checkList = '';
+    //         let cardName = card.name;
+    //
+    //         $.each(card.checkItems, function(index, checkItem) {
+    //
+    //             let listItem = `<li>${checkItem.name}</li>`
+    //             checkList += listItem;
+    //         });
+    //
+    //         $('body').append(`<h1>${cardName}</h1><ul class="card">${checkList}</ul>`);
+    //
+    //     });
+    // }
 }
