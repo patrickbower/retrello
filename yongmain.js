@@ -51,21 +51,23 @@ class ReTrello {
 
         $.each(cardsData, function(index, card) {
 
-            instance.tileName = card.name;
-            instance.checklistId = card.idChecklists[0];
+            instance.tile = {
+                name: card.name,
+                checklist_id: card.idChecklists[0]
+            }
 
-            instance.getChecklists()
+            instance.getChecklists.bind(this);
         });
     }
 
     getChecklists(){
         this.fetch(
-            this.buildCheckListUrl(this.checklistId),
-            this.createChecklist(this)
+            this.buildCheckListUrl(this.tile.checklist_id),
+            this.createChecklist.bind(this)
         );
     }
 
-    createChecklist(checklistData){
-        // console.log(this.tileName, checklistData);
+    createChecklist(listData){
+        console.log(this, listData);
     }
 }
