@@ -2,7 +2,8 @@ const settings = {
     url: 'https://api.trello.com',
     key: 'bb6807f13b020310a0543a81ebf10765',
     token: 'd89724c1f1285f66151e76c547600c779272f3df7cb7124dabe1f421324bd42c',
-    listID: '57b2d4a2afe55af0fbe5f2c6',
+    toDoListID: '57b2d4a2afe55af0fbe5f2c6',
+    doneListID: '57b6d8877bc2ff705a1b58ce',
     boardID: '57b2d499a88d75c2a259f666'
 }
 
@@ -13,59 +14,122 @@ class ReTrello {
 
     init() {
         this.getCards();
+        this.inputBindEvents();
     }
 
     /*
-     * Utils
-     *
-     */
+    * Utils
+    *
+    */
     fetch(urlString, callBack) {
         $.ajax(urlString).done(callBack);
     }
 
-    buildCardUrl() {
-        return `${settings.url}/1/lists/${settings.listID}/cards?key=${settings.key}&token=${settings.token}`;
+    buildCardsUrl(id) {
+        return `${settings.url}/1/lists/${id}/cards?key=${settings.key}&token=${settings.token}`
     }
 
-    buildCheckListUrl(checkListID) {
-        return `${settings.url}/1/checklists/${checkListID}/checkItems?key=${settings.key}&token=${settings.token}`
+    buildListsUrl(id) {
+        return `${settings.url}/1/cards/${id}/idList?key=${settings.key}&token=${settings.token}&value=${settings.doneListID}`
     }
 
-    test(){
-        return 'test';
+    addNewCardUrl() {
+        return `${settings.url}/1/cards?key=${settings.key}&token=${settings.token}`
     }
 
     /*
-     * Application
-     *
-     */
+    * Cards
+    *
+    */
     getCards() {
         this.fetch(
-            this.buildCardUrl(),
+            this.buildCardsUrl(settings.toDoListID),
             this.createTile.bind(this)
         );
     }
 
     createTile(cardsData) {
         let instance = this;
+        let list = $('.list');
 
         $.each(cardsData, function(index, card) {
+            list.append(`
+                <li class="tile" id="${card.id}">
+                ${card.name}
+                <a href="#" class="close">
+                &#10005;
+                <a>
+                </li>`
+            )
+        });
 
-            instance.tileName = card.name;
-            instance.checklistId = card.idChecklists[0];
+        this.bindEvents();
+    }
 
-            instance.getChecklists()
+    bindEvents() {
+        let instance = this;
+
+        $('.list').on('click', '.close', function(event){
+            let id = $(this).parent().attr('id');
+            instance.moveCard(id);
+            instance.removeCard(id);
         });
     }
 
-    getChecklists(){
-        this.fetch(
-            this.buildCheckListUrl(this.checklistId),
-            this.createChecklist(this)
-        );
+    moveCard(id) {
+
+        $.ajax({
+            url: this.buildListsUrl(id),
+            type: 'PUT',
+            success: function(result) {
+                console.log('removed');
+            }
+        })
     }
 
-    createChecklist(checklistData){
-        // console.log(this.tileName, checklistData);
+    removeCard(id) {
+        $('#' + id)
+        .fadeOut(900)
+        .delay(900)
+        .remove();
+    }
+
+    /*
+    * Input
+    *
+    */
+    inputBindEvents() {
+        let instance = this;
+
+        $('.input').keypress(function(event) {
+            if (event.which === 13 && $(this).val().length > 2) {
+
+                let inputValue = $(this).val();
+                instance.createTrelloCard(inputValue);
+            }
+        });
+    }
+
+    createTrelloCard(inputValue){
+
+        let newCard = {
+            name: inputValue,
+            desc: 'test',
+            idList: settings.toDoListID,
+            pos: 'top'
+        };
+
+        let name = inputValue;
+        let desc = 'test';
+        let listID = settings.toDoListID;
+
+        $.ajax({
+            url: this.addNewCardUrl(),
+            type: 'POST',
+            data: newCard,
+            success: function(result) {
+                location.reload();
+            }
+        })
     }
 }
