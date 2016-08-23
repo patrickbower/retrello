@@ -8,19 +8,22 @@
 <body>
 
     <!-- APP -->
-    <h1>Stop googling stuff and do a thing</h1>
+    <div class="timer">
+        <button class="start-timer">Start</button>
+        <span class="timer-clock">20:00</span>
+
+        <audio class="alarm">
+            <source src="sound.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
     <ul class="list"></ul>
     <div class="footer">
         <input type="text" class="input" placeholder="add something..."/>
     </div>
 
     <!-- SCRIPTS -->
-    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="jquery-2.2.4.min.js"></script>
     <script src="main.js" type="text/javascript"></script>
-    <script>
-        let instance = new ReTrello();
-        instance.init();
-    </script>
-
 </body>
 </html>

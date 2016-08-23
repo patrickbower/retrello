@@ -18,11 +18,9 @@ a {
 }
 
 h1 {
-    text-align: center;
     font-size: 50px;
     padding: 30px 20px;
     color: white;
-    /*text-shadow: #b38f00 2px 2px 0;*/
 }
 
 h2 {
@@ -44,6 +42,11 @@ h2 {
     margin: 10px;
 }
 
+.tile.active {
+    background: #cca300;
+    color: white;
+}
+
 .close {
     font-style: normal;
     float: right;
@@ -63,8 +66,8 @@ h2 {
     outline: none;
     border: none;
     width: 100%;
-    padding: 10px 15px;
-    font-size: 50px;
+    padding: 10px 0;
+    font-size: 26px;
     font-family: georgia;
     font-style: italic;
     color: #fecb00;
@@ -73,4 +76,41 @@ h2 {
 
 ::-webkit-input-placeholder {
     color: #fff0b3;
+}
+
+.timer {
+    margin: 50px auto;
+    width: 240px;
+    display: block;
+    background: #cca300;
+    padding: 70px 20px;
+    border-radius: 50%;
+}
+
+.start-timer {
+    outline: none;
+    border: none;
+    padding: 25px;
+    line-height: 50px;
+    border-radius: 50%;
+    font-size: 22px;
+    font-family: georgia;
+    font-style: italic;
+    color: #fecb00;
+    background: white;
+    margin-left: -60px;
+    display: inline-block;
+}
+
+.start-timer:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px 0 #cca300;
+}
+
+.timer-clock {
+    display: inline-block;
+    font-size: 50px;
+    line-height: 0;
+    position: relative;
+    top: 8px;
 }

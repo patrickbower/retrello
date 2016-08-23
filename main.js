@@ -4,7 +4,8 @@ const settings = {
     token: 'd89724c1f1285f66151e76c547600c779272f3df7cb7124dabe1f421324bd42c',
     toDoListID: '57b2d4a2afe55af0fbe5f2c6',
     doneListID: '57b6d8877bc2ff705a1b58ce',
-    boardID: '57b2d499a88d75c2a259f666'
+    boardID: '57b2d499a88d75c2a259f666',
+    timer: 20
 }
 
 class ReTrello {
@@ -74,6 +75,12 @@ class ReTrello {
             instance.moveCard(id);
             instance.removeCard(id);
         });
+
+        $('.list').on('click', '.tile', function(event){
+            console.log('active', $(this));
+            $(this).toggleClass('active');
+        });
+
     }
 
     moveCard(id) {
@@ -133,3 +140,59 @@ class ReTrello {
         })
     }
 }
+
+let retrello = new ReTrello();
+retrello.init();
+
+
+class Timer {
+    constructor() {
+
+    }
+
+    init() {
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        let instance = this;
+
+        $('.start-timer').on('click', function(event){
+            event.preventDefault();
+            instance.countdown(settings.timer);
+        });
+    }
+
+    countdown(minutes) {
+        let instance = this;
+        let seconds = 60;
+        let mins = minutes
+
+        function tick() {
+
+            let counter = $('.timer-clock');
+            let current_minutes = mins-1;
+            seconds--;
+
+            counter.text(current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds));
+
+            if (seconds > 0) {
+
+                setTimeout(tick, 1000);
+
+            } else {
+
+                if (mins > 1){
+                    instance.countdown(mins-1);
+                } else {
+                    console.log('alarm');
+                    $('.alarm')[0].play();
+                }
+            }
+        }
+        tick();
+    }
+}
+
+let timer = new Timer();
+timer.init();

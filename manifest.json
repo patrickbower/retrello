@@ -1,0 +1,13 @@
+{
+    "name": "ReTrello",
+    "version": "0.0.0.1",
+    "manifest_version": 2,
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "content_scripts": [{
+        "matches": ["https://www.google.co.uk/_/chrome/*"],
+        "css": ["style.css"],
+         "js": ["jquery-2.2.4.min.js", "main.js"]
+    }]
+}
