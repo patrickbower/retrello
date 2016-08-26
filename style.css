@@ -32,7 +32,7 @@ h2 {
 
 .list {
     list-style: none;
-    padding-bottom: 250px;
+    padding: 41px 0 250px 0;
 }
 
 .tile {
@@ -79,12 +79,13 @@ h2 {
 }
 
 .timer {
-    margin: 50px auto;
+    margin: 50px auto 0 auto;
     width: 240px;
     display: block;
     background: #cca300;
     padding: 70px 20px;
     border-radius: 50%;
+    display: none;
 }
 
 .start-timer {
@@ -113,4 +114,16 @@ h2 {
     line-height: 0;
     position: relative;
     top: 8px;
+}
+
+.toggle-timer {
+    font-style: normal;
+    font-size: 26px;
+    background: none;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    background: white;
+    color: #fecb00;
+    padding: 5px 10px;
 }

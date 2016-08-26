@@ -96,9 +96,9 @@ class ReTrello {
 
     removeCard(id) {
         $('#' + id)
-        .fadeOut(900)
-        .delay(900)
-        .remove();
+            .fadeOut(900)
+            .delay(900)
+            .remove();
     }
 
     /*
@@ -157,10 +157,20 @@ class Timer {
     bindEvents() {
         let instance = this;
 
+        $('.toggle-timer').on('click', function(){
+            event.preventDefault();
+            instance.toggleTimer();
+        });
+
         $('.start-timer').on('click', function(event){
             event.preventDefault();
             instance.countdown(settings.timer);
         });
+    }
+
+    toggleTimer() {
+        console.log('toggle');
+        $('.timer').toggle();
     }
 
     countdown(minutes) {
@@ -181,11 +191,9 @@ class Timer {
                 setTimeout(tick, 1000);
 
             } else {
-
                 if (mins > 1){
                     instance.countdown(mins-1);
                 } else {
-                    console.log('alarm');
                     $('.alarm')[0].play();
                 }
             }
