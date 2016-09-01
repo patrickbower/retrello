@@ -71,18 +71,22 @@ input.add-card {
     position: relative;
 }
 
+.card.active {
+    border-left: 5px solid #E74B3E;
+}
+
 .card__name {
     font-size: 18px;
     display: block;
 }
 
-.card__checklist {
-    margin-top: 20px;
-}
-
 .card__checklist-item {
     position: relative;
     padding: 8px 0;
+}
+
+.card__checklist-item:first-child {
+    margin-top: 20px;
 }
 
 .card__checklist-link:before {

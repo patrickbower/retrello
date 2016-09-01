@@ -116,7 +116,7 @@ class ReTrello {
 
     render(card) {
         // card - opional state (label)
-        let card_head = card.label ? `<li id=${card.card_id} class="card active">` : `<li id=${card.id} class="card">`;
+        let card_head = card.label ? `<li id=${card.card_id} class="card active">` : `<li id=${card.card_id} class="card">`;
         // title
         let card_name = `<span class="card__name">${card.name}</span>`;
         // checklist - optional
@@ -141,16 +141,19 @@ class ReTrello {
                 }
             }
 
-            card_checklist = `
-                        <ul class="card__checklist">
-                            ${list}
-                        </ul>
-                        <input type="text" class="card__add-to-checklist" placeholder="+"/>`
-
-
+            card_checklist = `<ul class="card__checklist" id="${card.checklist.id}">${list}</ul>`
+        } else {
+            card_checklist = `<ul class="card__checklist"></ul>`
         }
 
-        $('#list').append(`${card_head}<a class="card__close" href="#">&#10005;</a>${card_name}${card_checklist}</li>`)
+        $('#todo').append(`
+            ${card_head}
+                <a class="card__close" href="#">&#10005;</a>
+                ${card_name}
+                ${card_checklist}
+                <input type="text" class="card__add-to-checklist" placeholder="+"/>
+            </li>`
+        )
     }
 }
 
