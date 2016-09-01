@@ -1,0 +1,139 @@
+/*
+ * Reset
+ *
+ */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Lato-Regular';
+    src: url('Lato-Regular.ttf');
+}
+
+body {
+    font-family: 'Lato-Regular';
+    background: #e9e9e9;
+    color: #999;
+    font-size: 14px;
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+/*
+ * Header
+ *
+ */
+
+.header {
+    background: #E74B3E;
+    margin-bottom: 20px;
+}
+
+input.add-card {
+    width: 100%;
+    padding: 10px;
+    font-size: 26px;
+    text-align: center;
+    background: none;
+    color: white;
+}
+
+::-webkit-input-placeholder {
+    color: white;
+}
+
+/*
+ * Card
+ *
+ */
+
+.card {
+    background: white;
+    padding: 40px 60px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.card__name {
+    font-size: 18px;
+    display: block;
+}
+
+.card__checklist {
+    margin-top: 20px;
+}
+
+.card__checklist-item {
+    position: relative;
+    padding: 8px 0;
+}
+
+.card__checklist-link:before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border: 2px solid #E74B3E;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 15px -1px 0;
+}
+
+.card__checklist-link.done {
+    text-decoration: line-through;
+    color: #cccccc;
+}
+
+.card__checklist-link.done:before {
+    content: '';
+    border-color: #cccccc;
+    background: #cccccc;
+}
+
+input.card__add-to-checklist {
+    width: 180px;
+    padding: 5px 10px;
+    background: #cccccc;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 16px;
+    display: block;
+    position: absolute;
+    bottom: -15px;
+    right: 50%;
+    margin-right: -90px;
+    color: white;
+}
+
+input.card__add-to-checklist:focus {
+    background: #E74B3E;
+}
+
+.card__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 13px;
+    border-radius: 50%;
+}
+
+.card__close:hover {
+    background: #ccc;
+    color: white;
+}

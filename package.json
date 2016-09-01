@@ -1,6 +1,6 @@
 {
   "name": "retrello",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Use trello API to create todo list",
   "main": "index.js",
   "scripts": {
